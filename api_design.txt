@@ -1,81 +1,67 @@
-====================================
+
+ENTITY: Department
+Feature: Create department
+API: POST /api/departments
+DB Action: INSERT into departments
+
+Feature: View all departments
+API: GET /api/departments
+DB Action: SELECT from departments
+
+
 ENTITY: Employee
-====================================
-Fields:
-- id (int, primary key)
-- name (string)
-- email (string, unique)
-- department (string)
+Feature: Add employee
+API: POST /api/employees
+DB Action: INSERT into employees
 
-Endpoints:
-- POST /api/employees
-  Description: Create a new employee
-  Request Body: name, email, department
-  DB Action: INSERT into employees
+Feature: View all employees
+API: GET /api/employees
+DB Action: SELECT from employees
 
-- GET /api/employees
-  Description: Get all employees
-  DB Action: SELECT from employees
+Feature: View single employee
+API: GET /api/employees/{employee_id}
+DB Action: SELECT by employee_id
 
-- GET /api/employees/{employee_id}
-  Description: Get one employee by ID
-  DB Action: SELECT by id
+Feature: Update employee
+API: PUT /api/employees/{employee_id}
+DB Action: UPDATE employees
 
-- PUT /api/employees/{employee_id}
-  Description: Update employee details
-  DB Action: UPDATE employees
+Feature: Delete employee
+API: DELETE /api/employees/{employee_id}
+DB Action: DELETE from employees
 
-- DELETE /api/employees/{employee_id}
-  Description: Delete employee
-  DB Action: DELETE from employees
 
-====================================
 ENTITY: Asset
-====================================
-Fields:
-- id (int, primary key)
-- name (string)
-- type (string)
-- status (Available / Assigned)
+Feature: Add asset
+API: POST /api/assets
+DB Action: INSERT into assets
 
-Endpoints:
-- POST /api/assets
-  Description: Create an asset
-  DB Action: INSERT into assets
+Feature: View all assets
+API: GET /api/assets
+DB Action: SELECT from assets
 
-- GET /api/assets
-  Description: Get all assets
-  DB Action: SELECT from assets
+Feature: Update asset status
+API: PUT /api/assets/{asset_id}
+DB Action: UPDATE assets
 
-- GET /api/assets/{asset_id}
-  Description: Get asset by ID
-  DB Action: SELECT by id
 
-- PUT /api/assets/{asset_id}
-  Description: Update asset details
-  DB Action: UPDATE assets
-
-- DELETE /api/assets/{asset_id}
-  Description: Delete asset
-  DB Action: DELETE from assets
-
-====================================
 ENTITY: Asset Assignment
-====================================
-Fields:
-- id (int, primary key)
-- employee_id (foreign key)
-- asset_id (foreign key)
-- assigned_date (date)
+Feature: Assign asset to employee
+API: POST /api/asset-assignments
+DB Action:
+- INSERT into asset_assignments
+- UPDATE assets.status = 'Assigned'
 
-Endpoints:
-- POST /api/asset-assignments
-  Description: Assign asset to employee
-  DB Action:
-    - INSERT into asset_assignments
-    - UPDATE asset status to Assigned
+Feature: View all assignments
+API: GET /api/asset-assignments
+DB Action: SELECT from asset_assignments
 
-- GET /api/asset-assignments
-  Description: View all asset assignments
-  DB Action:
-    - SELECT with JOIN employees and assets
+
+ENTITY: Asset Maintenance
+Feature: Log maintenance
+API: POST /api/asset-maintenance
+DB Action: INSERT into asset_maintenance_logs
+
+Feature: View maintenance history
+API: GET /api/asset-maintenance/{asset_id}
+DB Action: SELECT by asset_id
