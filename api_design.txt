@@ -1,0 +1,81 @@
+====================================
+ENTITY: Employee
+====================================
+Fields:
+- id (int, primary key)
+- name (string)
+- email (string, unique)
+- department (string)
+
+Endpoints:
+- POST /api/employees
+  Description: Create a new employee
+  Request Body: name, email, department
+  DB Action: INSERT into employees
+
+- GET /api/employees
+  Description: Get all employees
+  DB Action: SELECT from employees
+
+- GET /api/employees/{employee_id}
+  Description: Get one employee by ID
+  DB Action: SELECT by id
+
+- PUT /api/employees/{employee_id}
+  Description: Update employee details
+  DB Action: UPDATE employees
+
+- DELETE /api/employees/{employee_id}
+  Description: Delete employee
+  DB Action: DELETE from employees
+
+====================================
+ENTITY: Asset
+====================================
+Fields:
+- id (int, primary key)
+- name (string)
+- type (string)
+- status (Available / Assigned)
+
+Endpoints:
+- POST /api/assets
+  Description: Create an asset
+  DB Action: INSERT into assets
+
+- GET /api/assets
+  Description: Get all assets
+  DB Action: SELECT from assets
+
+- GET /api/assets/{asset_id}
+  Description: Get asset by ID
+  DB Action: SELECT by id
+
+- PUT /api/assets/{asset_id}
+  Description: Update asset details
+  DB Action: UPDATE assets
+
+- DELETE /api/assets/{asset_id}
+  Description: Delete asset
+  DB Action: DELETE from assets
+
+====================================
+ENTITY: Asset Assignment
+====================================
+Fields:
+- id (int, primary key)
+- employee_id (foreign key)
+- asset_id (foreign key)
+- assigned_date (date)
+
+Endpoints:
+- POST /api/asset-assignments
+  Description: Assign asset to employee
+  DB Action:
+    - INSERT into asset_assignments
+    - UPDATE asset status to Assigned
+
+- GET /api/asset-assignments
+  Description: View all asset assignments
+  DB Action:
+    - SELECT with JOIN employees and assets
